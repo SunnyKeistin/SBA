@@ -1,13 +1,12 @@
 # SBA
 Git： https://github.com/honeylovebaby/SBA
 
-Front-End
-sba-frontend
+Front-End:sba-frontend
 
-Eureka
-sba-regestry
+Eureka:sba-regestry
 
 Services
+
 sba-accounts
 
 sba-auth
