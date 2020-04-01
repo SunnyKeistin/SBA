@@ -1,0 +1,21 @@
+<nz-layout class="layout">
+  <nz-header>
+    <div class="logo">
+      <a routerLink="/" class="logo-home" rel="noopener noreferrer" >
+        <img src="http://ng.ant.design/assets/img/logo.svg" alt="logo">
+        <h1>Mentor On Demand</h1>
+      </a>
+    </div>
+    <ul nz-menu nzTheme="dark" class="top-nav" nzMode="horizontal">
+      <li nz-menu-item>Home</li>
+      <li nz-menu-item>Search</li>
+      <li nz-menu-item>Courses</li>
+    </ul>
+  </nz-header>
+  <nz-content>
+    <div class="inner-content">
+      <router-outlet></router-outlet>
+    </div>
+  </nz-content>
+  <nz-footer>Mentor On Demand ©2019 FSD SBA</nz-footer>
+</nz-layout>
