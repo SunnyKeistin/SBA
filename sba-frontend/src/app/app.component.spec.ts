@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'fsd-frontend'`, () => {
+  it(`should have as title 'sba-frontend'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('fsd-frontend');
+    expect(app.title).toEqual('sba-frontend');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('fsd-frontend app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('sba-frontend app is running!');
   });
 });
