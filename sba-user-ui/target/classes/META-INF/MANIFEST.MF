@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Built-By: KaiQinChen
+Build-Jdk: 13.0.2
+Class-Path: spring-core-4.0.2.RELEASE.jar jcl-over-slf4j-1.7.6.jar slf4j
+ -api-1.7.6.jar slf4j-log4j12-1.7.6.jar log4j-1.2.17.jar spring-context-
+ 4.0.2.RELEASE.jar spring-aop-4.0.2.RELEASE.jar aopalliance-1.0.jar spri
+ ng-beans-4.0.2.RELEASE.jar spring-expression-4.0.2.RELEASE.jar spring-w
+ ebmvc-4.0.2.RELEASE.jar spring-web-4.0.2.RELEASE.jar spring-jdbc-4.0.2.
+ RELEASE.jar spring-tx-4.0.2.RELEASE.jar jstl-1.2.jar mybatis-spring-1.2
+ .2.jar mybatis-3.2.5.jar aspectjweaver-1.7.4.jar commons-lang3-3.3.2.ja
+ r
+Created-By: Maven Integration for Eclipse
+
