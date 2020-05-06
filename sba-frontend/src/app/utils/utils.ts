@@ -1,5 +1,5 @@
 import { KEYS } from './constants';
-import { User } from '../models/user.model'
+import { User } from '../models/user'
 export function tokenGetter() {
     return localStorage.getItem(KEYS.JWT_TOKEN);
 }

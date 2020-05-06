@@ -1,26 +1,39 @@
 package com.ibm.sba.controller;
 
-import com.ibm.sba.model.UserModel;
-import com.ibm.sba.utils.EncrytedPasswordUtils;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ibm.sba.entity.User;
 import com.ibm.sba.model.HttpResponse;
+import com.ibm.sba.model.UserModel;
 import com.ibm.sba.service.UserService;
+import com.ibm.sba.utils.EncrytedPasswordUtils;
 
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -29,6 +42,48 @@ public class AccountController {
 	private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
 	@Autowired
 	private UserService userService;
+	
+	@GetMapping("/authenticate")
+	public Map<String, String> authenticate(@RequestHeader("Authorization") String authHeader) {
+		logger.info("start");
+
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("token", generateJwt(getUser(authHeader)));
+
+		String username = getUser(authHeader);
+		map.put("username", username);
+		
+		User user = userService.findUser(username);
+		String firstname = user.getFirstName();
+		String lastname = user.getLastName();
+		String role = user.getRole();
+		map.put("role", role);
+		map.put("firstname", firstname);
+		map.put("lastname", lastname);
+		logger.info("END OF AUTH FUNCTION");
+		return map;
+	}
+
+	private String getUser(String authHeader) {
+		String user = new String(Base64.getDecoder().decode(authHeader.substring(6)));
+		user = user.substring(0, user.indexOf(":"));
+		logger.info(user);
+		return user;
+	}
+
+	private String generateJwt(String user) {
+		JwtBuilder builder = Jwts.builder();
+		builder.setSubject(user);
+
+		builder.setIssuedAt(new Date());
+
+		builder.setExpiration(new Date((new Date()).getTime() + 1200000));
+		builder.signWith(SignatureAlgorithm.HS256, "secretkey");
+
+		String token = builder.compact();
+		logger.info(token);
+		return token;
+	}
 
 	/**
 	 * Go through Zuul gateway, and should bypass authentication.

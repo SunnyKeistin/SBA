@@ -1,20 +1,32 @@
 package com.ibm.sba.controller;
 
-import com.ibm.sba.entity.Course;
-import com.ibm.sba.entity.CourseComment;
-import com.ibm.sba.model.HttpResponse;
-import com.ibm.sba.model.MentorFilter;
-import com.ibm.sba.service.CourseService;
-import io.swagger.annotations.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.ibm.sba.entity.Course;
+import com.ibm.sba.entity.CourseComment;
+import com.ibm.sba.model.HttpResponse;
+import com.ibm.sba.model.MentorFilter;
+import com.ibm.sba.service.CourseService;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -25,6 +37,17 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
+    @PostMapping("/courseRequest")
+	public void addCourseRequest(@RequestBody @Valid Course course) throws Exception {
+    	courseService.addCourseRequest(course);
+	}
+	
+	@PostMapping("/editStatus")
+	public void editStatus(@RequestBody @Valid Course course){
+		courseService.editStatus(course);
+	}
+    
+    
     /**
      * Interface to get all skills, Go through Zuul gateway, and should bypass authentication.
      * @param

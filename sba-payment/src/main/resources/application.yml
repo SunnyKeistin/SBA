@@ -2,7 +2,7 @@
 spring:
   profiles: local
   application:
-    name: sba-payment
+    name: payment
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:33060/test?useSSL=true&useUnicode=true&characterEncoding=utf-8
